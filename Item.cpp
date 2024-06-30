@@ -1,20 +1,31 @@
 #include "Item.h"
-#include "Mascota.h"
 
-void Comida::usar(Mascota& mascota) {
-    cout << "Usando comida: " << nombre << " en la mascota\n";
-    mascota.setSalud(mascota.getSalud() + 20);
-    mascota.setEnergia(mascota.getEnergia() + 20);
-    cantidad--;
+Item::Item(int id, const std::string& nombre, int cantidad)
+    : id(id), nombre(nombre), cantidad(cantidad) {}
+
+int Item::getId() const {
+    return id;
 }
 
-void Medicina::usar(Mascota& mascota) {
-    cout << "Usando medicina: " << nombre << " en la mascota\n";
-    mascota.setSalud(mascota.getSalud() + 40);
-    cantidad--;
+const std::string& Item::getNombre() const {
+    return nombre;
 }
 
-void Juguete::usar(Mascota& mascota) {
-    cout << "Usando juguete: " << nombre << " en la mascota\n";
-    mascota.setFelicidad(mascota.getFelicidad() + 30);
+int Item::getCantidad() const {
+    return cantidad;
 }
+
+void Item::usar() {
+    if (cantidad > 0) {
+        --cantidad;
+    }
+}
+
+Comida::Comida(int id, const std::string& nombre, int cantidad)
+    : Item(id, nombre, cantidad) {}
+
+Medicina::Medicina(int id, const std::string& nombre, int cantidad)
+    : Item(id, nombre, cantidad) {}
+
+Juguete::Juguete(int id, const std::string& nombre, int cantidad)
+    : Item(id, nombre, cantidad) {}

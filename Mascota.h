@@ -1,43 +1,36 @@
 #ifndef MASCOTA_H
 #define MASCOTA_H
 
-#include "Inventario.h"
 #include <string>
-#include <vector>
-#include <memory>
-
-using namespace std;
 
 class Mascota {
 public:
-    enum class Estado { Neutro, Feliz, Triste, Hambriento, Enojado, Cansado, Muerto };
+    enum Estado { Neutro, Feliz, Triste, Hambriento, Enojado, Cansado, Muerto };
 
-    Mascota(string nombreMascota);
-    Mascota(string nombreMascota, const vector<shared_ptr<Item>>& items);
+    Mascota(const std::string& nombre);
 
-    void actualizarEstado();
-    void verificarLimites();
-    void imprimirEstado();
+    void mostrarEstado() const;
+    void usarComida();
+    void usarMedicina();
+    void usarJuguete();
+    void avanzarTiempo(double segundos);
 
-    void setSalud(int s);
-    int getSalud() const { return salud; }
-    void setEnergia(int e);
-    int getEnergia() const { return energia; }
-    void setFelicidad(int f);
-    int getFelicidad() const { return felicidad; }
-
-    Inventario& getInventario() { return inventario; }
+    const std::string& getNombre() const;
+    double getEdad() const;
+    int getSalud() const;
+    int getEnergia() const;
+    int getFelicidad() const;
+    Estado getEstado() const;
 
 private:
-    string nombre;
-    double edad;
-    int salud;
-    int energia;
-    int felicidad;
-    Estado estadoActual;
+    std::string nombre;
+    double edad; // En días
+    int salud; // 0-100
+    int energia; // 0-100
+    int felicidad; // 0-100
+    Estado estado;
 
-    void disminuirFelicidad(int cantidad);
-    Inventario inventario;
+    void actualizarEstado();
 };
 
 #endif // MASCOTA_H

@@ -3,39 +3,19 @@
 
 #include "Item.h"
 #include <vector>
-#include <memory>
-#include <iostream>
-
-using namespace std;
+#include <string>
 
 class Inventario {
 public:
-    void agregarItem(shared_ptr<Item> item) {
-        items.push_back(item);
-    }
-
-    void usarItem(int id, Mascota& mascota) {
-        for (auto& item : items) {
-            if (item->getId() == id) {
-                item->usar(mascota);
-                if (item->getCantidad() == 0) {
-                    items.erase(remove(items.begin(), items.end(), item), items.end());
-                }
-                break;
-            }
-        }
-    }
-
-    void imprimirInventario() const {
-        for (const auto& item : items) {
-            cout << "ID: " << item->getId() << "\n";
-            cout << "Nombre: " << item->getNombre() << "\n";
-            cout << "Cantidad: " << item->getCantidad() << "\n";
-        }
-    }
+    void agregarItem(Item* item);
+    void eliminarItem(int id);
+    Item* obtenerItem(int id);
+    void mostrarInventario() const;
+    const std::vector<Item*>& getItems() const;
+    void cargarDesdeCSV(const std::string& nombreArchivo);
 
 private:
-    vector<shared_ptr<Item>> items;
+    std::vector<Item*> items;
 };
 
 #endif // INVENTARIO_H
